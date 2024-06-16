@@ -166,7 +166,7 @@ const ProfilePage = () => {
             </Grid>
           </Grid>
         </Box>
-        {tripId?.length !== 0 && (
+        {(tripId?.length || 0) !== 0 && (
           <Button
             variant="contained"
             color="primary"
@@ -176,7 +176,7 @@ const ProfilePage = () => {
             Share On Going Trip
           </Button>
         )}
-        {tripId?.length !== 0 && (
+        {(tripId?.length || 0) !== 0 && (
           <Button
             variant="contained"
             color="primary"
