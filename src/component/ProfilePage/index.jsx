@@ -264,7 +264,7 @@ const ProfilePage = () => {
             View Feedbacks
           </Button>
         )}
-        {userDetails.isTravelerCompanion && (
+        {(tripId?.length || 0) !== 0 && userDetails.isTravelerCompanion && (
           <Button
             variant="contained"
             color="primary"
