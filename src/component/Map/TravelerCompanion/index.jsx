@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, Fragment } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ROOT_URL } from "../../../common-utlis/helper";
 
 // Mapbox access token
@@ -23,9 +23,12 @@ const MapComponent = () => {
   const fetchTripDetails = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log(currentLocation);
+      console.log(token);
       const { data } = await axios.get(
-        `${ROOT_URL}/user/traveler-companion/track-trip?tripId=${tripId}`,
+        `${ROOT_URL}/user/traveler-companion/track-trip`,
         {
+          params: { tripId },
           headers: {
             Authorization: token,
           },
@@ -33,7 +36,6 @@ const MapComponent = () => {
       );
 
       const tripData = data.tripInfo;
-      console.log(tripData);
       setTripDetails(tripData);
       setCurrentLocation({
         lng: tripData.lastTrackedLocation.lon,
@@ -43,6 +45,7 @@ const MapComponent = () => {
         lng: tripData.destinationLocation.lon,
         lat: tripData.destinationLocation.lat,
       });
+      console.log("currentLocation");
 
       // Update current location marker
       if (currentMarkerRef.current) {
@@ -106,15 +109,15 @@ const MapComponent = () => {
     }
   }, [currentLocation]);
 
-  useEffect(() => {
-    // Update destination marker position on map
-    if (mapRef.current) {
-      // Fly to the new destination
-      mapRef.current.flyTo({
-        center: [destination.lng, destination.lat],
-      });
-    }
-  }, [destination]);
+  // useEffect(() => {
+  //   // Update destination marker position on map
+  //   if (mapRef.current) {
+  //     // Fly to the new destination
+  //     mapRef.current.flyTo({
+  //       center: [destination.lng, destination.lat],
+  //     });
+  //   }
+  // }, [destination]);
 
   return (
     <div>

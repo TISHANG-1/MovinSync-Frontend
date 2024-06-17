@@ -65,6 +65,14 @@ const ProfilePage = () => {
           ...userDetails,
           isTraveler: updatedIsTraveler,
         });
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            ...userInfo,
+            isTraveler: updatedIsTraveler,
+          })
+        );
       })
       .catch((err) => {
         console.error("Error updating traveler status:", err);
@@ -95,6 +103,14 @@ const ProfilePage = () => {
           ...userDetails,
           isTravelerCompanion: updatedIsTravelerCompanion,
         });
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            ...userInfo,
+            isTravelerCompanion: updatedIsTravelerCompanion,
+          })
+        );
       })
       .catch((err) => {
         console.error("Error updating traveler companion status:", err);
