@@ -19,6 +19,8 @@ const MapComponent = () => {
   const [tripDetails, setTripDetails] = useState(null);
   const [error, setError] = useState(null);
 
+  localStorage.setItem("tripId", tripId);
+
   // Function to fetch trip details and update locations
   const fetchTripDetails = async () => {
     try {
