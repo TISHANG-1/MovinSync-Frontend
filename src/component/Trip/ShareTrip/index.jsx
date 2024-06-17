@@ -62,7 +62,7 @@ const ShareTrip = () => {
   };
 
   return (
-    <div>
+    <div style={{ margin: "10px" }}>
       <h2>Share Trip</h2>
       <form onSubmit={handleSubmit}>
         {entries.map((entry, index) => (

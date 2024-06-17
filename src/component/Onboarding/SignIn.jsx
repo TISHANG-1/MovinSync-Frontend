@@ -50,6 +50,7 @@ function SignIn() {
             email,
             isTraveler,
             isTravelerCompanion,
+            isAdmin,
           } = data;
           localStorage.setItem("token", token);
           localStorage.setItem(
@@ -60,10 +61,11 @@ function SignIn() {
               email,
               isTraveler,
               isTravelerCompanion,
+              isAdmin,
             })
           );
 
-          navigate("/");
+          navigate("/my-profile");
         })
         .catch((err) => {
           console.log(err);
@@ -156,10 +158,7 @@ function SignIn() {
               error={!!formErrors.password}
               helperText={formErrors.password}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
@@ -170,11 +169,6 @@ function SignIn() {
               {submitting ? "Signing In..." : "Sign In"}
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="/sign-up" variant="body2">
                   {"Don't have an account? Sign Up"}

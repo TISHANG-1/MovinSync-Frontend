@@ -69,7 +69,7 @@ const CreateTrip = () => {
           localStorage.setItem("endLat", formData.endLat);
           localStorage.setItem("endLon", formData.endLon);
           // Redirect to another page after successful trip creation
-          navigate("/dashboard");
+          navigate("/view-trip");
         })
         .catch((error) => {
           console.error("Error creating trip:", error);

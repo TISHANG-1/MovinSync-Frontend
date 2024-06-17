@@ -49,14 +49,24 @@ const FeedbackForm = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="s"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        margin: "10px",
+        alignItems: "center",
+      }}
+    >
       <Typography variant="h4" align="center" gutterBottom>
         Feedback Form
       </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{ "& .MuiTextField-root": { mb: 2 } }}
+        width={700}
+        sx={{ "& .MuiTextField-root": { mb: 4 } }}
       >
         <TextField
           id="description"

@@ -45,7 +45,6 @@ const MapComponent = () => {
         lng: tripData.destinationLocation.lon,
         lat: tripData.destinationLocation.lat,
       });
-      console.log("currentLocation");
 
       // Update current location marker
       if (currentMarkerRef.current) {

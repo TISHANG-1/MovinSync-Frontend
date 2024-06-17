@@ -11,10 +11,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ROOT_URL } from "../../common-utlis/helper";
+import { ButtonsDiv } from "./styles";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-
+  const [tripId, setTripId] = useState(localStorage.getItem("tripId"));
   // State to store user details and toggle states
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -28,8 +29,14 @@ const ProfilePage = () => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
     if (userInfo) {
-      const { name, phoneNumber, email, isTraveler, isTravelerCompanion } =
-        userInfo;
+      const {
+        name,
+        phoneNumber,
+        email,
+        isTraveler,
+        isTravelerCompanion,
+        isAdmin,
+      } = userInfo;
 
       setUserDetails({
         username: name || "",
@@ -37,6 +44,7 @@ const ProfilePage = () => {
         email: email || "",
         isTraveler: isTraveler || false,
         isTravelerCompanion: isTravelerCompanion || false,
+        isAdmin: isAdmin || false,
       });
     }
   }, []);
@@ -80,7 +88,6 @@ const ProfilePage = () => {
   };
 
   // Function to handle toggling of traveler companion status
-  const [tripId, setTripId] = useState(localStorage.getItem("tripId"));
   const handleToggleTravelerCompanion = () => {
     const token = localStorage.getItem("token");
     axios
@@ -141,8 +148,21 @@ const ProfilePage = () => {
       });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("tripId");
+    localStorage.removeItem("startLocation");
+    localStorage.removeItem("endLocation");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      maxWidth="s"
+    >
       <CssBaseline />
       <Box
         sx={{
@@ -182,6 +202,28 @@ const ProfilePage = () => {
             </Grid>
           </Grid>
         </Box>
+      </Box>
+      <ButtonsDiv>
+        {(tripId?.length || 0) === 0 && userDetails.isTraveler && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/create-trip")}
+            sx={{ mt: 3 }}
+          >
+            Create Trip
+          </Button>
+        )}
+        {(tripId?.length || 0) !== 0 && userDetails.isTraveler && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/view-trip")}
+            sx={{ mt: 3 }}
+          >
+            View Trip
+          </Button>
+        )}
         {(tripId?.length || 0) !== 0 && (
           <Button
             variant="contained"
@@ -202,7 +244,55 @@ const ProfilePage = () => {
             End Trip
           </Button>
         )}
-      </Box>
+        {userDetails.isAdmin && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/overall-shared-rides")}
+            sx={{ mt: 3 }}
+          >
+            Overall Shared Rides
+          </Button>
+        )}
+        {userDetails.isAdmin && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/view-feedbacks")}
+            sx={{ mt: 3 }}
+          >
+            View Feedbacks
+          </Button>
+        )}
+        {userDetails.isTravelerCompanion && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/submit-feedback")}
+            sx={{ mt: 3 }}
+          >
+            Give Feedback
+          </Button>
+        )}
+        {userDetails.isTraveler && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("/view-shared-rides")}
+            sx={{ mt: 3 }}
+          >
+            View Shared Rides
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleLogout()}
+          sx={{ mt: 3 }}
+        >
+          Logout
+        </Button>
+      </ButtonsDiv>
     </Container>
   );
 };
