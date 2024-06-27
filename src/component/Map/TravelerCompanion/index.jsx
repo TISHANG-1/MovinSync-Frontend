@@ -97,7 +97,7 @@ const MapComponent = () => {
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalId);
-  }, []);
+  }, [destination]);
 
   useEffect(() => {
     // Update current location marker position on map

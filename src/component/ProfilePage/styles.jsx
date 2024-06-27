@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ButtonsDiv = styled.div`
   display: flex;
-  width: 1000px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
